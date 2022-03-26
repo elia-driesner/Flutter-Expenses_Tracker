@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
 
 void main() {
   runApp(const App());
@@ -13,27 +12,27 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  static String title_msg = 'Was koch ich überhaupt?';
-  void new_dish() {
-    setState(() {
-      title_msg = 'Das koch ich :)';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-            body: Column(children: [
-      Container(
-          child: Text(
-            title_msg,
-            style: const TextStyle(fontSize: 30),
-            textAlign: TextAlign.center,
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text('Expenses Tracker'),
           ),
-          width: double.infinity,
-          margin: const EdgeInsets.fromLTRB(0, 300, 0, 15)),
-      ElevatedButton(onPressed: new_dish, child: const Text('generate new')),
-    ])));
+          body: Column(
+            children: [
+              Container(
+                child: Card(
+                  child: Text('Chart'),
+                ),
+                width: double.infinity,
+                height: 50,
+              ),
+              Card(
+                child: Text('Transactions'),
+              )
+            ],
+          )),
+    );
   }
 }
