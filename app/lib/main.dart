@@ -30,6 +30,7 @@ class _AppState extends State<App> {
     }
   }
 
+// tests
   void addTransaction({required title, required amount}) {}
 
   // late String titleInput;
