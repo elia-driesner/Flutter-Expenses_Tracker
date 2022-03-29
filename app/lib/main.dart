@@ -1,5 +1,6 @@
 import 'models/transaction.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -26,12 +27,23 @@ class _AppState extends State<App> {
     String removeId = id;
 
     for (var i = 0; i < transactions.length; i++) {
-      print(transactions[i]);
+      setState(() {
+        transactions.removeAt(i);
+      });
     }
   }
 
 // tests
-  void addTransaction({required title, required amount}) {}
+  void addTransaction({required title, required amount}) {
+    var uuid = Uuid();
+    setState(() {
+      transactions.add(Transaction(
+          id: '1234',
+          title: title,
+          amount: amount.toDouble(),
+          date: DateTime.now()));
+    });
+  }
 
   // late String titleInput;
   // late String amountInput;
@@ -68,11 +80,12 @@ class _AppState extends State<App> {
                           TextField(
                             decoration: InputDecoration(labelText: 'Amount:'),
                             controller: amountInputController,
-                            // onChanged: (val) => amountInput = val,
                           ),
                           ElevatedButton(
                               onPressed: () {
-                                print(titleInputController.text);
+                                addTransaction(
+                                    title: titleInputController.text,
+                                    amount: amountInputController.text);
                               },
                               child: Text('Add Transaction'))
                         ],
