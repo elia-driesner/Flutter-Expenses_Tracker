@@ -2,6 +2,7 @@ import 'models/transaction.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 void main() {
   runApp(const App());
@@ -15,38 +16,32 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final List<Transaction> transactions = [
-    Transaction(
-        id: 'meggeboocke',
-        title: 'MacBook',
-        amount: -400.00,
-        date: DateTime.now())
-  ];
+  final List<Transaction> transactions = [];
 
   void removeElement({required id}) {
     String removeId = id;
 
     for (var i = 0; i < transactions.length; i++) {
-      setState(() {
-        transactions.removeAt(i);
-      });
+      if (removeId == transactions[i].id) {
+        setState(() {
+          transactions.removeAt(i);
+        });
+      }
     }
   }
 
 // tests
   void addTransaction({required title, required amount}) {
     var uuid = Uuid();
+    var intAmount = double.parse(amount);
     setState(() {
       transactions.add(Transaction(
-          id: '1234',
+          id: uuid.v4(),
           title: title,
-          amount: amount.toDouble(),
+          amount: intAmount,
           date: DateTime.now()));
     });
   }
-
-  // late String titleInput;
-  // late String amountInput;
 
   final titleInputController = TextEditingController();
   final amountInputController = TextEditingController();
